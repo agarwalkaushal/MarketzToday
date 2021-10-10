@@ -61,7 +61,7 @@ def fear_greed_today():
     tweet_tweet('Fear/Greed today #MarketzToday', 'fig1.png')
 
 
-def markets_today():
+def markets_today_us():
 
     region = "US"
     url = "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region="+region
@@ -101,19 +101,70 @@ def markets_today():
     draw.text((550, 400), 'https://twitter.com/MarketzToday',
               (255, 255, 255), font=font)
     new.save('fig2.png')
-    tweet_tweet('Market indices today #MarketzToday', 'fig2.png')
+    tweet_tweet('US market indices today #MarketzToday', 'fig2.png')
 
 
+def markets_today_in():
+
+    region = "IN"
+    url = "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region="+region
+    headers = {'x-api-key': "l7FKFiZ86C7kTcBoszU1c9sAKjeq2uLX4rK0jtuq"}
+
+    response = requests.request("GET", url, headers=headers)
+
+    res = json.loads(response.text)
+
+    bse = res['marketSummaryResponse']['result'][0]
+    nse = res['marketSummaryResponse']['result'][1]
+
+    data = [bse, nse]
+
+    new = Image.new("RGB", (900, 450))  # , color=(255,255,255,0))
+    up = Image.open('up.png')
+    down = Image.open('down.png')
+    font = ImageFont.truetype("arial.ttf", 32)
+    draw = ImageDraw.Draw(new)
+    count = 1
+    for i in data:
+        name = i['fullExchangeName']
+        current = i['regularMarketPrice']['fmt']
+        change = i['regularMarketChange']['fmt']
+        change_percent = i['regularMarketChangePercent']['fmt']
+        if float(change) >= 0:
+            new.paste(up, (150, count*120))
+        else:
+            new.paste(down, (150, count*100))
+        draw.text((200, count*120), name, (255, 255, 255), font=font)
+        draw.text((400, count*120), current, (255, 255, 255), font=font)
+        draw.text((650, count*120), change_percent, (255, 255, 255), font=font)
+        count = count + 1
+
+    font = ImageFont.truetype("arial.ttf", 16)
+    draw.text((550, 400), 'https://twitter.com/MarketzToday',
+              (255, 255, 255), font=font)
+    new.save('fig2.png')
+    tweet_tweet('Indian market indices today #MarketzToday', 'fig2.png')
+
+
+schedule.every().monday.at("06:30").do(markets_today_in)
 schedule.every().monday.at("09:00").do(fear_greed_today)
-schedule.every().monday.at("16:30").do(markets_today)
+schedule.every().monday.at("16:30").do(markets_today_us)
+
+schedule.every().tuesday.at("06:30").do(markets_today_in)
 schedule.every().tuesday.at("09:00").do(fear_greed_today)
-schedule.every().tuesday.at("16:30").do(markets_today)
+schedule.every().tuesday.at("16:30").do(markets_today_us)
+
+schedule.every().wednesday.at("06:30").do(markets_today_in)
 schedule.every().wednesday.at("09:00").do(fear_greed_today)
-schedule.every().wednesday.at("16:30").do(markets_today)
+schedule.every().wednesday.at("16:30").do(markets_today_us)
+
+schedule.every().thursday.at("06:30").do(markets_today_in)
 schedule.every().thursday.at("09:00").do(fear_greed_today)
-schedule.every().thursday.at("16:30").do(markets_today)
+schedule.every().thursday.at("16:30").do(markets_today_us)
+
+schedule.every().friday.at("06:30").do(markets_today_in)
 schedule.every().friday.at("09:00").do(fear_greed_today)
-schedule.every().friday.at("16:30").do(markets_today)
+schedule.every().friday.at("16:30").do(markets_today_us)
 
 while 1:
     schedule.run_pending()
