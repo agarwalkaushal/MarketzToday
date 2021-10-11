@@ -154,25 +154,25 @@ def markets_today_in():
     tweet_tweet('Indian market indices today #MarketzToday', 'fig2.png')
 
 
-schedule.every().monday.at("06:30").do(markets_today_in)
-schedule.every().monday.at("09:00").do(fear_greed_today)
-schedule.every().monday.at("16:30").do(markets_today_us)
+schedule.every().monday.at("10:30").do(markets_today_in)
+schedule.every().monday.at("13:00").do(fear_greed_today)
+schedule.every().monday.at("20:30").do(markets_today_us)
 
-schedule.every().tuesday.at("06:30").do(markets_today_in)
-schedule.every().tuesday.at("09:00").do(fear_greed_today)
-schedule.every().tuesday.at("16:30").do(markets_today_us)
+schedule.every().tuesday.at("10:30").do(markets_today_in)
+schedule.every().tuesday.at("13:00").do(fear_greed_today)
+schedule.every().tuesday.at("20:30").do(markets_today_us)
 
-schedule.every().wednesday.at("06:30").do(markets_today_in)
-schedule.every().wednesday.at("09:00").do(fear_greed_today)
-schedule.every().wednesday.at("16:30").do(markets_today_us)
+schedule.every().wednesday.at("10:30").do(markets_today_in)
+schedule.every().wednesday.at("13:00").do(fear_greed_today)
+schedule.every().wednesday.at("20:30").do(markets_today_us)
 
-schedule.every().thursday.at("06:30").do(markets_today_in)
-schedule.every().thursday.at("09:00").do(fear_greed_today)
-schedule.every().thursday.at("16:30").do(markets_today_us)
+schedule.every().thursday.at("10:30").do(markets_today_in)
+schedule.every().thursday.at("13:00").do(fear_greed_today)
+schedule.every().thursday.at("20:30").do(markets_today_us)
 
-schedule.every().friday.at("06:30").do(markets_today_in)
-schedule.every().friday.at("09:00").do(fear_greed_today)
-schedule.every().friday.at("16:30").do(markets_today_us)
+schedule.every().friday.at("10:30").do(markets_today_in)
+schedule.every().friday.at("13:00").do(fear_greed_today)
+schedule.every().friday.at("20:30").do(markets_today_us)
 
 while 1:
     print('running')
