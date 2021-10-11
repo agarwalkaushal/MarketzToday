@@ -150,6 +150,9 @@ def markets_today_in():
 
 
 schedule.every(5).minutes.do(fear_greed_today)
+schedule.every().monday.at("09:50").do(fear_greed_today)
+schedule.every().monday.at("10:00").do(fear_greed_today)
+schedule.every().monday.at("10:10").do(fear_greed_today)
 
 schedule.every().monday.at("06:30").do(markets_today_in)
 schedule.every().monday.at("09:00").do(fear_greed_today)
