@@ -8,6 +8,7 @@ import time
 
 
 def tweet_tweet(text, path):
+    print('here 3')
     consumer_key = "AIz32xSHvAE81cdhkJWvWNGLx"
     consumer_secret = "XHDCuCiAJHwEiCoaqvWTBG9R6Kf9cuKpyjvyWjI1ep5P2DKX0k"
     access_key = "1446841040162283526-7yWa67GwRhKHf8Ak5cA6zrc3TI6o9d"
@@ -23,10 +24,11 @@ def tweet_tweet(text, path):
     # to attach the media file
     status = api.update_with_media(image_path, tweet)
     api.update_status(status=status)
+    print('here 5')
 
 
 def fear_greed_today():
-
+    print('here 1')
     url = "https://fear-and-greed-index.p.rapidapi.com/v1/fgi"
     headers = {
         'x-rapidapi-host': "fear-and-greed-index.p.rapidapi.com",
@@ -58,6 +60,7 @@ def fear_greed_today():
 
     fig.update_layout(title="https://twitter.com/MarketzToday", )
     fig.write_image("fig1.png")
+    print('here 2')
     tweet_tweet('Fear/Greed today #MarketzToday', 'fig1.png')
 
 
@@ -147,7 +150,7 @@ def markets_today_in():
 
 
 schedule.every().monday.at("06:30").do(markets_today_in)
-schedule.every().monday.at("09:00").do(fear_greed_today)
+schedule.every().monday.at("09:10").do(fear_greed_today)
 schedule.every().monday.at("16:30").do(markets_today_us)
 
 schedule.every().tuesday.at("06:30").do(markets_today_in)
@@ -167,5 +170,6 @@ schedule.every().friday.at("09:00").do(fear_greed_today)
 schedule.every().friday.at("16:30").do(markets_today_us)
 
 while 1:
+    print('hola')
     schedule.run_pending()
     time.sleep(1)
