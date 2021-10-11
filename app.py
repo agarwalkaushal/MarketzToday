@@ -149,7 +149,7 @@ def markets_today_in():
     tweet_tweet('Indian market indices today #MarketzToday', 'fig2.png')
 
 
-schedule.every(30).seconds.do(fear_greed_today)
+# schedule.every(30).seconds.do(fear_greed_today)
 
 schedule.every().monday.at("06:30").do(markets_today_in)
 schedule.every().monday.at("09:15").do(fear_greed_today)
