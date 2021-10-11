@@ -8,7 +8,7 @@ import time
 
 
 def tweet_tweet(text, path):
-    print('here 3')
+    print('----------------tweet_tweet------------ start ')
     consumer_key = "AIz32xSHvAE81cdhkJWvWNGLx"
     consumer_secret = "XHDCuCiAJHwEiCoaqvWTBG9R6Kf9cuKpyjvyWjI1ep5P2DKX0k"
     access_key = "1446841040162283526-7yWa67GwRhKHf8Ak5cA6zrc3TI6o9d"
@@ -23,12 +23,15 @@ def tweet_tweet(text, path):
 
     # to attach the media file
     status = api.update_with_media(image_path, tweet)
-    api.update_status(status=status)
-    print('here 5')
+    try:
+        api.update_status(status=status)
+    except ValueError:
+        print("tweet_tweet exception")
+    print('----------------tweet_tweet------------ end ')
 
 
 def fear_greed_today():
-    print('here 1')
+    print('----------------fear_greed_today------------ start ')
     url = "https://fear-and-greed-index.p.rapidapi.com/v1/fgi"
     headers = {
         'x-rapidapi-host': "fear-and-greed-index.p.rapidapi.com",
@@ -37,7 +40,7 @@ def fear_greed_today():
     response = requests.request("GET", url, headers=headers)
 
     res = json.loads(response.text)
-    print(res, '***************************')
+    print(res)
     title = res["fgi"]["now"]["valueText"]
     value = res["fgi"]["now"]["value"]
 
@@ -60,12 +63,12 @@ def fear_greed_today():
 
     fig.update_layout(title="https://twitter.com/MarketzToday", )
     fig.write_image("fig1.png")
-    print('here 2')
+    print('----------------fear_greed_today------------ end ')
     tweet_tweet('Fear/Greed today #MarketzToday', 'fig1.png')
 
 
 def markets_today_us():
-
+    print('----------------markets_today_us------------ start ')
     region = "US"
     url = "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region="+region
     headers = {'x-api-key': "l7FKFiZ86C7kTcBoszU1c9sAKjeq2uLX4rK0jtuq"}
@@ -73,7 +76,7 @@ def markets_today_us():
     response = requests.request("GET", url, headers=headers)
 
     res = json.loads(response.text)
-
+    print(res)
     sp = res['marketSummaryResponse']['result'][0]
     dji = res['marketSummaryResponse']['result'][1]
     nasdaq = res['marketSummaryResponse']['result'][2]
@@ -104,11 +107,12 @@ def markets_today_us():
     draw.text((550, 400), 'https://twitter.com/MarketzToday',
               (255, 255, 255), font=font)
     new.save('fig2.png')
+    print('----------------markets_today_us------------ end ')
     tweet_tweet('US market indices today #MarketzToday', 'fig2.png')
 
 
 def markets_today_in():
-
+    print('----------------markets_today_in------------ start ')
     region = "IN"
     url = "https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region="+region
     headers = {'x-api-key': "l7FKFiZ86C7kTcBoszU1c9sAKjeq2uLX4rK0jtuq"}
@@ -116,7 +120,7 @@ def markets_today_in():
     response = requests.request("GET", url, headers=headers)
 
     res = json.loads(response.text)
-
+    print(res)
     bse = res['marketSummaryResponse']['result'][0]
     nse = res['marketSummaryResponse']['result'][1]
 
@@ -146,12 +150,9 @@ def markets_today_in():
     draw.text((550, 400), 'https://twitter.com/MarketzToday',
               (255, 255, 255), font=font)
     new.save('fig2.png')
+    print('----------------markets_today_in------------ end ')
     tweet_tweet('Indian market indices today #MarketzToday', 'fig2.png')
 
-
-schedule.every().monday.at("09:50").do(fear_greed_today)
-schedule.every().monday.at("10:00").do(fear_greed_today)
-schedule.every().monday.at("10:10").do(fear_greed_today)
 
 schedule.every().monday.at("06:30").do(markets_today_in)
 schedule.every().monday.at("09:00").do(fear_greed_today)
@@ -174,6 +175,6 @@ schedule.every().friday.at("09:00").do(fear_greed_today)
 schedule.every().friday.at("16:30").do(markets_today_us)
 
 while 1:
-    print('hola')
+    print('running')
     schedule.run_pending()
     time.sleep(1)
