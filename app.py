@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 import json
 import schedule
 import time
+import urllib.request
 
 
 def tweet_tweet(text, path):
@@ -153,6 +154,16 @@ def markets_today_in():
     print('----------------markets_today_in------------ end ')
     tweet_tweet('Indian market indices today #MarketzToday', 'fig2.png')
 
+
+def bitcoin_today():
+    print('----------------bitcoin_today------------ start ')
+    urllib.request.urlretrieve(
+        "https://alternative.me/crypto/fear-and-greed-index.png", "fig3.png")
+    print('----------------bitcoin_today------------ end ')
+    tweet_tweet('Bitcoin Fear/Greed today #MarketzToday', 'fig3.png')
+
+
+schedule.every().day.at("00:00").do(bitcoin_today)
 
 schedule.every().monday.at("10:30").do(markets_today_in)
 schedule.every().monday.at("13:00").do(fear_greed_today)
