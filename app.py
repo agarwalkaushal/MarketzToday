@@ -163,8 +163,6 @@ def bitcoin_today():
     tweet_tweet('Bitcoin Fear/Greed today #MarketzToday', 'fig3.png')
 
 
-bitcoin_today()
-
 schedule.every().day.at("00:00").do(bitcoin_today)
 
 schedule.every().monday.at("10:30").do(markets_today_in)
