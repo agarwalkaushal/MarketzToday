@@ -65,7 +65,7 @@ def fear_greed_today():
     fig.update_layout(title="https://twitter.com/MarketzToday", )
     fig.write_image("fig1.png")
     print('----------------fear_greed_today------------ end ')
-    tweet_tweet('Fear/Greed today #MarketzToday', 'fig1.png')
+    tweet_tweet('Equities Fear/Greed today #MarketzToday', 'fig1.png')
 
 
 def markets_today_us():
@@ -162,6 +162,8 @@ def bitcoin_today():
     print('----------------bitcoin_today------------ end ')
     tweet_tweet('Bitcoin Fear/Greed today #MarketzToday', 'fig3.png')
 
+
+bitcoin_today()
 
 schedule.every().day.at("00:00").do(bitcoin_today)
 
