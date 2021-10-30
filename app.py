@@ -141,7 +141,7 @@ def markets_today_in():
         if float(change) >= 0:
             new.paste(up, (150, count*120))
         else:
-            new.paste(down, (150, count*100))
+            new.paste(down, (150, count*120))
         draw.text((200, count*120), name, (255, 255, 255), font=font)
         draw.text((400, count*120), current, (255, 255, 255), font=font)
         draw.text((650, count*120), change_percent, (255, 255, 255), font=font)
